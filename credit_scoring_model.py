@@ -1,9 +1,3 @@
-# ============================================================
-#  CREDIT SCORING MODEL — Complete Pipeline
-#  Dataset: cs-training.csv (Kaggle "Give Me Some Credit")
-#  Save this file and cs-training.csv in the same folder.
-#  Run: python credit_scoring_model.py
-# ============================================================
 
 import pandas as pd
 import numpy as np
@@ -29,10 +23,7 @@ from imblearn.over_sampling import SMOTE
 import warnings
 warnings.filterwarnings('ignore')
 
-
-# ─────────────────────────────────────────────
 # STAGE 1 — LOAD DATA
-# ─────────────────────────────────────────────
 
 print("\n" + "="*55)
 print("  STAGE 1: Loading Data")
@@ -50,10 +41,8 @@ print(f"\nFirst 3 rows:\n{df.head(3)}")
 print(f"\nClass distribution:\n{df['SeriousDlqin2yrs'].value_counts()}")
 print(f"\nDefault rate: {df['SeriousDlqin2yrs'].mean()*100:.2f}%")
 
-
-# ─────────────────────────────────────────────
 # STAGE 2 — PREPROCESSING
-# ─────────────────────────────────────────────
+
 
 print("\n" + "="*55)
 print("  STAGE 2: Preprocessing")
@@ -80,10 +69,7 @@ df['RevolvingUtilizationOfUnsecuredLines'] = df[
 print(f"\nMissing values after cleaning:\n{df.isnull().sum()}")
 print(f"\nDataset shape after cleaning: {df.shape}")
 
-
-# ─────────────────────────────────────────────
 # STAGE 3 — FEATURE ENGINEERING
-# ─────────────────────────────────────────────
 
 print("\n" + "="*55)
 print("  STAGE 3: Feature Engineering")
@@ -126,10 +112,7 @@ new_features = [
 for f in new_features:
     print(f"  ✓ {f}")
 
-
-# ─────────────────────────────────────────────
 # STAGE 4 — TRAIN / TEST SPLIT + SCALING
-# ─────────────────────────────────────────────
 
 print("\n" + "="*55)
 print("  STAGE 4: Train/Test Split & Scaling")
@@ -160,10 +143,7 @@ sm = SMOTE(random_state=42)
 X_train_res, y_train_res = sm.fit_resample(X_train_scaled, y_train)
 print(f"After SMOTE — class distribution:\n{pd.Series(y_train_res).value_counts()}")
 
-
-# ─────────────────────────────────────────────
 # STAGE 5 — MODEL TRAINING
-# ─────────────────────────────────────────────
 
 print("\n" + "="*55)
 print("  STAGE 5: Model Training")
@@ -195,10 +175,7 @@ for name, model in models.items():
     trained_models[name] = model
     print(f"  ✓ {name} trained")
 
-
-# ─────────────────────────────────────────────
 # STAGE 6 — EVALUATION
-# ─────────────────────────────────────────────
 
 print("\n" + "="*55)
 print("  STAGE 6: Evaluation")
@@ -248,10 +225,7 @@ print(summary.round(4).to_string())
 best_model_name = summary['ROC-AUC'].idxmax()
 print(f"\n★ Best model by ROC-AUC: {best_model_name}")
 
-
-# ─────────────────────────────────────────────
 # STAGE 7 — VISUALIZATIONS
-# ─────────────────────────────────────────────
 
 print("\n" + "="*55)
 print("  STAGE 7: Generating Visualizations...")
